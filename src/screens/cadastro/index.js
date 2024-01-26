@@ -19,7 +19,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Manieri
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -61,33 +61,34 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={60}>
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Nome completo"
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  id="senha"
+                  label="Senha"
+                  name="email"
+                  autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
+                  id="conf_senha"
+                  label="Confirmação da senha"
                   name="email"
                   autoComplete="email"
                 />
@@ -97,7 +98,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Token"
                   type="password"
                   id="password"
                   autoComplete="new-password"
@@ -108,14 +109,14 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, bgcolor: '#004AAD' }}
             >
-              Sign Up
+              Cadastrar
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
+                <Link href="/login" variant="body2">
+                  Você já tem uma conta? Logar
                 </Link>
               </Grid>
             </Grid>
