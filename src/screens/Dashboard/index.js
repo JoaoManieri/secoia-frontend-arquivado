@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart.js';
+// import Chart from './Chart.js';
 import Deposits from './Deposits';
 import Orders from './Orders.js';
 
@@ -85,6 +85,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -173,7 +174,7 @@ export default function Dashboard() {
                     height: 240,
                   }}
                 >
-                  <Chart />
+                  {/* <Chart /> */}
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
