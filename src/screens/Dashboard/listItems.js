@@ -10,16 +10,19 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
-function setFragment(origem) {
-  console.log(origem);
-}
 
 const listItemsData = [
-  { label: "Dashboard", icon: <DashboardIcon />, onClick: () => setFragment("Dashboard") },
+  { label: "Dashboard", icon: <DashboardIcon />, onClick: () => setFragment("Dashboard")},
   { label: "Orders", icon: <ShoppingCartIcon />, onClick: () => setFragment("Orders") },
   { label: "Customers", icon: <PeopleIcon />, onClick: () => setFragment("Customers") },
   { label: "Reports", icon: <BarChartIcon />, onClick: () => setFragment("Reports") },
   { label: "Integrations", icon: <LayersIcon />, onClick: () => setFragment("Integrations") },
+];
+
+const secondaryListItemsData = [
+  { label: "Current month", icon: <AssignmentIcon />, onClick: () => setFragment("Current month") },
+  { label: "Last quarter", icon: <AssignmentIcon />, onClick: () => setFragment("Last quarter") },
+  { label: "Year-end sale", icon: <AssignmentIcon />, onClick: () => setFragment("Year-end sale") },
 ];
 
 export const mainListItems = (
@@ -32,12 +35,6 @@ export const mainListItems = (
     ))}
   </React.Fragment>
 );
-
-const secondaryListItemsData = [
-  { label: "Current month", icon: <AssignmentIcon />, onClick: () => setFragment("Current month") },
-  { label: "Last quarter", icon: <AssignmentIcon />, onClick: () => setFragment("Last quarter") },
-  { label: "Year-end sale", icon: <AssignmentIcon />, onClick: () => setFragment("Year-end sale") },
-];
 
 export const secondaryListItems = (
   <React.Fragment>
