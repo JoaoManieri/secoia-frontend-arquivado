@@ -1,7 +1,10 @@
+'use client';
+
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Deposits from './Deposits';
 import Orders from './Orders.js';
+import * as React from 'react';
 
 export default function Page() {
 
