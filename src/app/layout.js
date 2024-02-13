@@ -85,11 +85,10 @@ export default function RootLayout({ children }) {
 
   function setFragment(route){
     router.push(route)
-    e.preventDefault();
   }
 
   const listItemsData = [
-    { label: "Dashboard", icon: <DashboardIcon />, onclick : () => setFragment('dashboard')},
+    { label: "Dashboard", icon: <DashboardIcon />, onclick : () => setFragment('/dashboard')},
     { label: "Orders", icon: <ShoppingCartIcon />, onclick : () => setFragment('/')},
     { label: "Customers", icon: <PeopleIcon />, onclick : () => setFragment('/newCustomer')},
     { label: "Reports", icon: <BarChartIcon />, onclick : () => setFragment('/')},
@@ -107,9 +106,9 @@ export default function RootLayout({ children }) {
     <React.Fragment>
       {listItemsData.map((item, index) => (
         <React.Fragment>
-        <ListItemButton key={index}>
+        <ListItemButton key={index} onClick={item.onclick}>
           <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.label} onClick={item.onclick} />
+          <ListItemText primary={item.label} />
         </ListItemButton>
       </React.Fragment>
       ))}
