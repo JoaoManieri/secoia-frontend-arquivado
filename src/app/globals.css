@@ -31,8 +31,3 @@ body {
     text-wrap: balance;
   }
 }
-
-::-webkit-scrollbar {
-  width: 12px; /* largura da barra de rolagem */
-  color: aliceblue;
-}
