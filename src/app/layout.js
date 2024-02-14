@@ -23,12 +23,26 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import Link from '@mui/material/Link';;
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 //export { RootLayout }; // Export both for flexibility
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://www.labnewtech.com.br">
+        newTech
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const drawerWidth = 240;
 
@@ -90,7 +104,7 @@ export default function RootLayout({ children }) {
   const listItemsData = [
     { label: "Dashboard", icon: <DashboardIcon />, onclick : () => setFragment('/dashboard')},
     { label: "Orders", icon: <ShoppingCartIcon />, onclick : () => setFragment('/')},
-    { label: "Customers", icon: <PeopleIcon />, onclick : () => setFragment('/newCustomer')},
+    { label: "Customers", icon: <PeopleIcon />, onclick : () => setFragment('/customer')},
     { label: "Reports", icon: <BarChartIcon />, onclick : () => setFragment('/')},
     { label: "Integrations", icon: <LayersIcon />, onclick : () => setFragment('/') },
   ];
@@ -209,6 +223,7 @@ export default function RootLayout({ children }) {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               {children}
             </Container>
+            <Copyright sx={{ pt: 4 }} />
           </Box>
         </Box>
       </ThemeProvider>

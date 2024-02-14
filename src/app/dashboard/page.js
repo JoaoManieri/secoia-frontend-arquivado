@@ -1,29 +1,13 @@
 'use client';
 
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-
 import Deposits from './Deposits';
 import Orders from './Orders.js';
 import * as React from 'react';
 
 export default function Dash() {
 
-  function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-  
 
   return (
     <React.Fragment>
@@ -61,7 +45,6 @@ export default function Dash() {
                 </Paper>
               </Grid>
             </Grid>
-        <Copyright sx={{ pt: 4 }} />
     </React.Fragment>
   )
 }
