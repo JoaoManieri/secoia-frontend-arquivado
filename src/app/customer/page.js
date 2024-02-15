@@ -10,6 +10,9 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { CustomerSearch } from './customersearch';
+import Link from 'next/link';
+import Button from '@mui/material/Button';
+import { useRouter } from 'next/navigation';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 170 },
@@ -42,6 +45,15 @@ function createData(name, code, population, size) {
   return { name, code, population, size, density };
 }
 
+export default function RootLayout({ children }) {
+
+  const router = useRouter()
+  const [open, setOpen] = React.useState(true);
+
+  function setFragment(route){
+    router.push(route)
+  }
+
 const rows = [
   createData('India', 'IN', 1324171354, 3287263),
   createData('China', 'CN', 1403500365, 9596961),
@@ -60,7 +72,6 @@ const rows = [
   createData('Brazil', 'BR', 210147125, 8515767),
 ];
 
-export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -75,12 +86,9 @@ export default function StickyHeadTable() {
 
   return (
     <React.Fragment>
-      
       <h1>Lista de clientes</h1>
-
-      <CustomerSearch/>
-      <br/>
-      
+      <CustomerSearch />
+      <br />
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
@@ -102,7 +110,12 @@ export default function StickyHeadTable() {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.code}
+                    >
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
@@ -129,6 +142,10 @@ export default function StickyHeadTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+      
+        <Button variant="contained" sx={{ mt: 2 }} onClick={() => setFragment('/customer/new')}>+ novo cliente</Button>
+     
+      
     </React.Fragment>
   );
 }
