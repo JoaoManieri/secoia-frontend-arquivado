@@ -12,8 +12,8 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
+import AddressForm from './InfoForm';
+import ContactForm from './ContactForm';
 import Review from './Review';
 
 
@@ -24,7 +24,7 @@ function getStepContent(step) {
     case 0:
       return <AddressForm />;
     case 1:
-      return <PaymentForm />;
+      return <ContactForm />;
     case 2:
       return <Review />;
     default:
@@ -47,7 +47,7 @@ export default function Checkout() {
     <React.Fragment>
       <CssBaseline />
     
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+      <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             Cadastro

@@ -1,11 +1,29 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import axios from 'axios';
 
 export default function AddressForm() {
+  const [cnpj, setCnpj] = useState('');
+
+  
+  const handleChange = (event) => {
+    setCnpj(event.target.value);
+  };
+
+
+  const handleBlur = async () => {
+    try {
+      const response = await axios.get(`/api/v1/cnpj/${cnpj}`);
+      setData(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error('Erro ao buscar dados:', error);
+    }
+  };
+
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -37,12 +55,14 @@ export default function AddressForm() {
         <Grid item xs={12}>
           <TextField
             required
-            id="address1"
-            name="address1"
-            label="Cnpj"
+            id="cnpj"
+            name="cnpj"
+            label="CNPJ"
             fullWidth
-            autoComplete="shipping address-line1"
+            autoComplete="cnpj"
             variant="standard"
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
         </Grid>
         <Grid item xs={12}>
