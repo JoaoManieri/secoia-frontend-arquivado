@@ -1,31 +1,36 @@
-import React, { useState } from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import axios from 'axios';
+import React, { useState } from "react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import clienteInstance from "@/helper/axios-instance";
+import LoadingComponent from "@/util/Loading";
 
 export default function AddressForm() {
-  const [cnpj, setCnpj] = useState('');
+  const [cnpj, setCnpj] = useState("");
+  const [clientData, setClientData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  
   const handleChange = (event) => {
     setCnpj(event.target.value);
   };
 
-
   const handleBlur = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get(`/api/v1/cnpj/${cnpj}`);
-      setData(response.data);
-      console.log(response.data)
-    } catch (error) {
-      console.error('Erro ao buscar dados:', error);
+      const response = await clienteInstance.get(`externo/busca/${cnpj}`);
+      setClientData(response.data);
+      setError(null);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
     }
   };
 
-
   return (
     <React.Fragment>
+      {/* {loading ? <LoadingComponent /> : null} */}
       <Typography variant="h6" gutterBottom>
         Informações do cliente
       </Typography>
@@ -39,6 +44,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="given-name"
             variant="standard"
+            value={clientData ? clientData.nome : ""}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -97,7 +103,6 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            
             id="zip"
             name="zip"
             label="gestor da conta"
@@ -108,7 +113,6 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-        
             id="country"
             name="country"
             label="Analista da conta"
@@ -119,7 +123,6 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-         
             id="country"
             name="country"
             label="Fator competitivo"
