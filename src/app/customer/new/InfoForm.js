@@ -3,10 +3,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import clienteInstance from "@/helper/axios-instance";
-import LoadingComponent from "@/util/Loading";
 
-export default function AddressForm() {
-  const [cnpj, setCnpj] = useState("");
+export default function InfoForm({ onDataCliente }) {
+  const [cnpj, setCnpj] = useState("01811547000130");
   const [clientData, setClientData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,6 +19,7 @@ export default function AddressForm() {
     try {
       const response = await clienteInstance.get(`externo/busca/${cnpj}`);
       setClientData(response.data);
+      onDataCliente(response.data);
       setError(null);
     } catch (err) {
       setError(err);
@@ -30,32 +30,34 @@ export default function AddressForm() {
 
   return (
     <React.Fragment>
-      {/* {loading ? <LoadingComponent /> : null} */}
       <Typography variant="h6" gutterBottom>
         Informações do cliente
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
+            type="text"
             required
-            id="firstName"
-            name="firstName"
+            id="nomeFantasia"
+            name="nomeFantasia"
             label="Nome fantasia"
             fullWidth
-            autoComplete="given-name"
+            autoComplete="nome pelo qual conhecemos ex. McDonnald's"
             variant="standard"
-            value={clientData ? clientData.nome : ""}
+            value={clientData ? clientData.fantasia : ""}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            type="text"
             required
-            id="lastName"
-            name="lastName"
+            id="razaoSocial"
+            name="razaoSocial"
             label="Razão social"
             fullWidth
-            autoComplete="family-name"
+            autoComplete="Nome de registro ex Arcos Dourados"
             variant="standard"
+            value={clientData ? clientData.nome : ""}
           />
         </Grid>
         <Grid item xs={12}>
@@ -69,6 +71,7 @@ export default function AddressForm() {
             variant="standard"
             onChange={handleChange}
             onBlur={handleBlur}
+            value={cnpj}
           />
         </Grid>
         <Grid item xs={12}>
@@ -90,6 +93,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
+            value={clientData ? clientData.atividade_principal[0].text : ""}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -99,6 +103,7 @@ export default function AddressForm() {
             label="Status da empresa"
             fullWidth
             variant="standard"
+            value={clientData ? clientData.fantasia : ""}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
