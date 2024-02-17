@@ -33,6 +33,7 @@ function getStepContent(step, setDataCliente, dataCliente) {
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  
   const [dataCliente, setDataCliente] = React.useState({});
 
   const handleData = (value) => {

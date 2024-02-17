@@ -9,6 +9,7 @@ export default function InfoForm({ onDataCliente }) {
   const [clientData, setClientData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  
 
   const handleChange = (event) => {
     setCnpj(event.target.value);
@@ -17,7 +18,7 @@ export default function InfoForm({ onDataCliente }) {
   const handleBlur = async () => {
     setLoading(true);
     try {
-      const response = await clienteInstance.get(`externo/busca/${cnpj}`);
+      const response = await clienteInstance.get(`externo/busca/${cnpj}`);   
       setClientData(response.data);
       onDataCliente(response.data);
       setError(null);
@@ -45,6 +46,7 @@ export default function InfoForm({ onDataCliente }) {
             autoComplete="nome pelo qual conhecemos ex. McDonnald's"
             variant="standard"
             value={clientData ? clientData.fantasia : ""}
+            onChange={(e) => setClientData({...clientData, fantasia: e.target.value})}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -58,6 +60,7 @@ export default function InfoForm({ onDataCliente }) {
             autoComplete="Nome de registro ex Arcos Dourados"
             variant="standard"
             value={clientData ? clientData.nome : ""}
+            onChange={(e) => setClientData({...clientData, fantasia: e.target.value})}
           />
         </Grid>
         <Grid item xs={12}>
@@ -93,7 +96,17 @@ export default function InfoForm({ onDataCliente }) {
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
-            value={clientData ? clientData.atividade_principal[0].text : ""}
+            value={clientData && clientData.atividade_principal ? clientData.atividade_principal[0].text : ""}
+            onChange={(e) => {
+              const newAtividadePrincipal = clientData.atividade_principal.map((item, index) => {
+                if (index === 0) {
+                  return {...item, text: e.target.value};
+                }
+                return item;
+              });
+            
+              setClientData({...clientData, atividade_principal: newAtividadePrincipal});
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -104,6 +117,7 @@ export default function InfoForm({ onDataCliente }) {
             fullWidth
             variant="standard"
             value={clientData ? clientData.fantasia : ""}
+            onChange={(e) => setClientData({...clientData, fantasia: e.target.value})}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
