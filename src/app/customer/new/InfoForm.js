@@ -1,33 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import clienteInstance from "@/helper/axios-instance";
 
-export default function InfoForm({ onDataCliente }) {
-  const [cnpj, setCnpj] = useState("01811547000130");
+export default function InfoForm({ onDataCliente, cliente }) {
+
   const [clientData, setClientData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   
-
-  const handleChange = (event) => {
-    setCnpj(event.target.value);
+  const handleChangeCNPJ = (event) => {
+    const cnpj = event.target.value;
+    setClientData({...clientData, cnpj});
   };
+  
+  useEffect(() => {
+    setClientData(cliente)
+  }, [])
 
-  const handleBlur = async () => {
+  useEffect(() => {
+    if (clientData !== null) {
+      onDataCliente(clientData)
+    }
+  },[clientData])
+
+  const handleBlurCNPJ = async (event) => {
+    const cnpj = event.target.value;
+    setClientData({...clientData, cnpj});
     setLoading(true);
     try {
       const response = await clienteInstance.get(`externo/busca/${cnpj}`);   
-      setClientData(response.data);
-      onDataCliente(response.data);
+      setClientData(prevState => ({...prevState, ...response.data}));
       setError(null);
     } catch (err) {
       setError(err);
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   return (
     <React.Fragment>
@@ -39,8 +50,8 @@ export default function InfoForm({ onDataCliente }) {
           <TextField
             type="text"
             required
-            id="nomeFantasia"
-            name="nomeFantasia"
+            id="fantasia"
+            name="fantasia"
             label="Nome fantasia"
             fullWidth
             autoComplete="nome pelo qual conhecemos ex. McDonnald's"
@@ -53,14 +64,14 @@ export default function InfoForm({ onDataCliente }) {
           <TextField
             type="text"
             required
-            id="razaoSocial"
-            name="razaoSocial"
+            id="nome"
+            name="nome"
             label="Razão social"
             fullWidth
             autoComplete="Nome de registro ex Arcos Dourados"
             variant="standard"
             value={clientData ? clientData.nome : ""}
-            onChange={(e) => setClientData({...clientData, fantasia: e.target.value})}
+            onChange={(e) => setClientData({...clientData, nome: e.target.value})}
           />
         </Grid>
         <Grid item xs={12}>
@@ -72,19 +83,21 @@ export default function InfoForm({ onDataCliente }) {
             fullWidth
             autoComplete="cnpj"
             variant="standard"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={cnpj}
+            onChange={handleChangeCNPJ}
+            onBlur={handleBlurCNPJ}
+            value={clientData ? clientData.cnpj : ""}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            id="address2"
-            name="address2"
+            id="simplesNacional"
+            name="simpesNacional"
             label="Simples nacional ativo"
             fullWidth
             autoComplete="shipping address-line2"
             variant="standard"
+            value={clientData ? clientData.simplesNacional : ""}
+            onChange={(e) => setClientData({...clientData, simplesNacional: e.target.value})}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -96,28 +109,19 @@ export default function InfoForm({ onDataCliente }) {
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
-            value={clientData && clientData.atividade_principal ? clientData.atividade_principal[0].text : ""}
-            onChange={(e) => {
-              const newAtividadePrincipal = clientData.atividade_principal.map((item, index) => {
-                if (index === 0) {
-                  return {...item, text: e.target.value};
-                }
-                return item;
-              });
-            
-              setClientData({...clientData, atividade_principal: newAtividadePrincipal});
-            }}
+            value={clientData ? clientData.atividadePrincipal : ""}
+            onChange={(e) => setClientData({...clientData, atividadePrincipal: e.target.value})}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            id="state"
-            name="state"
+            id="situacao"
+            name="situacao"
             label="Status da empresa"
             fullWidth
             variant="standard"
-            value={clientData ? clientData.fantasia : ""}
-            onChange={(e) => setClientData({...clientData, fantasia: e.target.value})}
+            value={clientData ? clientData.situacao : ""}
+            onChange={(e) => setClientData({...clientData, situacao: e.target.value})}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -147,17 +151,6 @@ export default function InfoForm({ onDataCliente }) {
             label="Fator competitivo"
             fullWidth
             autoComplete="shipping country"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Usuário criador"
-            fullWidth
-            autoComplete="shipping postal-code"
             variant="standard"
           />
         </Grid>

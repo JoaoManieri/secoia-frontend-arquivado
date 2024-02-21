@@ -14,7 +14,7 @@ export default function ContactList({ rows }) {
         <TableHead>
           <TableRow>
             <TableCell><strong>Nome</strong></TableCell>
-            <TableCell align="right"><strong>Cargo</strong></TableCell>
+            <TableCell align="right"><strong>Telefone</strong></TableCell>
             <TableCell align="right"><strong>e-mail</strong></TableCell>
           </TableRow>
         </TableHead>

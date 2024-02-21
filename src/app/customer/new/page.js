@@ -16,14 +16,29 @@ import Review from "./Review";
 
 const steps = ["Informações do cliente", "Informações de contato", "Revisão"];
 
-function getStepContent(step, setDataCliente, dataCliente) {
+function getStepContent(step) {
+
+  const [dataCliente, setDataCliente] = React.useState({});
+  const [listEndereco, setListEndereco] = React.useState([])
+  const [listContatos, setListContatos] = React.useState([])
+
+  React.useEffect(() => {
+
+
+
+
+  }, [dataCliente])
+
   switch (step) {
     case 0:
       return <InfoForm onDataCliente={setDataCliente} cliente={dataCliente} />;
     case 1:
-      return (
-        <ContactForm onDataCliente={setDataCliente} cliente={dataCliente} />
-      );
+      return <ContactForm 
+      listEndereco={listEndereco} 
+      setListEndereco={setListEndereco} 
+      listContatos={listContatos} 
+      setListContatos={setListContatos} 
+      />
     case 2:
       return <Review />;
     default:
@@ -34,8 +49,6 @@ function getStepContent(step, setDataCliente, dataCliente) {
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
   
-  const [dataCliente, setDataCliente] = React.useState({});
-
   const handleData = (value) => {
     setData(value);
   };
@@ -80,7 +93,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep, setDataCliente, dataCliente)}
+              {getStepContent(activeStep)}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
