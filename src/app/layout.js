@@ -28,6 +28,7 @@ import Link from '@mui/material/Link';;
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 //export { RootLayout }; // Export both for flexibility
 
@@ -102,9 +103,9 @@ export default function RootLayout({ children }) {
   }
 
   const listItemsData = [
-    { label: "Dashboard", icon: <DashboardIcon />, onclick : () => setFragment('/dashboard')},
+    { label: "Menu", icon: <DashboardIcon />, onclick : () => setFragment('/dashboard')},
     { label: "Orders", icon: <ShoppingCartIcon />, onclick : () => setFragment('/')},
-    { label: "Customers", icon: <PeopleIcon />, onclick : () => setFragment('/customer')},
+    { label: "Cadastro clientes", icon: <GroupAddIcon />, onclick : () => setFragment('/customer')},
     { label: "Reports", icon: <BarChartIcon />, onclick : () => setFragment('/')},
     { label: "Integrations", icon: <LayersIcon />, onclick : () => setFragment('/') },
   ];
@@ -156,7 +157,8 @@ export default function RootLayout({ children }) {
           <AppBar position="absolute" open={open}>
             <Toolbar
               sx={{
-                pr: '24px', // keep right padding when drawer closed
+                pr: '240px',
+                backgroundColor:"#004AAD" // keep right padding when drawer closed
               }}
             >
               <IconButton
@@ -178,7 +180,7 @@ export default function RootLayout({ children }) {
                 noWrap
                 sx={{ flexGrow: 1 }}
               >
-                Dashboard
+                Menu
               </Typography>
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">

@@ -143,7 +143,7 @@ const rows = [
         />
       </Paper>
       
-        <Button variant="contained" sx={{ mt: 2 }} onClick={() => setFragment('/customer/new')}>+ novo cliente</Button>
+        <Button variant="contained" sx={{ mt: 2,backgroundColor:"#004AAD" }} onClick={() => setFragment('/customer/new')}>+ novo cliente</Button>
      
       
     </React.Fragment>
