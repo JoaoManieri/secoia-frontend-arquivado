@@ -40,11 +40,101 @@ export default function InfoForm({ onDataCliente, cliente }) {
     }
   };  
 
+  const verificacaoAreaAtuacao = () => {
+    if (!areaAtuacao) {
+      setAreaAtuacaoValida(false);
+    } else {
+      setAreaAtuacaoValida(true);
+    }
+  };
+
+  const verificacaoNomeFantasia = () => {
+    if (!nomeFantasia) {
+      setNomeFantasiaValido(false);
+    } else {
+      setNomeFantasiaValido(true);
+    }
+  };
+
+  const verificacaoUsuarioCriador = () => {
+    if (!usuarioCriador) {
+      setUsuarioCriadorValido(false);
+    } else {
+      setUsuarioCriadorValido(true);
+    }
+  };
+
+  const verificacaoElementos = () => {
+    if (!razaoSocial) {
+      setRazaoSocialValida(false);
+    } else {
+      setRazaoSocialValida(true);
+    }
+  };
+
+  const handleCnpjChange = (event) => {
+    const newCnpjValue = event.target.value;
+    setCnpjValue(newCnpjValue);
+  };
+
+  const handleValidateCnpj = () => {
+    setIsValidCnpj(cnpj.isValid(cnpjValue)); // Validando o CNPJ quando a validação é ativada
+  };
+
+  const checkCnpjStatus = () => {
+    if (cnpjValue.trim() === "") {
+      setValido(true)
+      console.log("O campo CNPJ está vazio.");
+    } else if (cnpj.isValid(cnpjValue)) {
+      setValido(false)
+      console.log("O campo CNPJ está completo.");
+      setIsValidCnpj(true);
+    } else {
+      setValido(true)
+      console.log("O campo CNPJ está incompleto.");
+      setIsValidCnpj(false);
+    }
+  };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Informações do cliente
       </Typography>
+
+      <Grid item xs={12}>
+        <InputMask
+          mask="99.999.999/9999-99"
+          value={cnpjValue}
+          onChange={handleCnpjChange}
+          onBlur={handleBlur}
+          // Adicionando a ref ao input de CNPJ
+          ref={cnpjInputRef}
+        >
+          {(inputProps) => (
+            <TextField
+              error={valido}
+              {...inputProps}
+              required
+              id="cnpj"
+              name="cnpj"
+              label="CNPJ"
+              fullWidth
+              autoComplete="cnpj"
+              variant="standard"
+              style={{ marginBottom: '20px', borderColor: isValidCnpj ? 'green' : 'red' }} // Estilo da borda baseado na validade do CNPJ
+              InputLabelProps={{ }} // Estilo diretamente na label
+              InputProps={{ style: { 
+                borderRadius: '5px',
+               
+              }}} // Estilo diretamente no input
+            />
+          )}
+        </InputMask>
+       
+
+    
+      </Grid>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField

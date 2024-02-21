@@ -35,7 +35,7 @@ export default function ContactDialog({ addNewContact }) {
           Novo contato
         </Button>
         <Dialog open={open} onClose={handleClose} PaperProps={{ component: 'form', onSubmit: handleSubmit }}>
-          <DialogTitle>Novo Contato</DialogTitle>
+          <DialogTitle >Novo Contato</DialogTitle>
           <DialogContent>
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
